@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyApp</string>
+    <string name="architect_your_app_with">architect your app with</string>
+    <string name="mvvm">MVVM</string>
+    <string name="belal_gmail_com">belal@gmail.com</string>
+    <string name="password">password</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account_nsign_up_here">Don\'t have an account?\nSign Up Here</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_nsign_in_here">Already have an account?\nSign in Here</string>
+    <string name="my_app">MyApp</string>
+    <string name="trending">Trending</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="movies">Movies</string>
+    <string name="api_key">c0c3ccb592274bc7030c9314002a11c7</string>
+</resources>
