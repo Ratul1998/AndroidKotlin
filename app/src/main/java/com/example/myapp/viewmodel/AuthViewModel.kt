@@ -37,6 +37,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
             if(usersList.isEmpty()){
                addUser(user)
+               SharedPreferenceUtil.writeSharedPreference("current_user_id",activity,user.id)
+               val intent = Intent(activity,HomeActivity::class.java)
+               activity.startActivity(intent)
+               activity.finish()
             }
             else{
                 val currentUser = usersList[0]

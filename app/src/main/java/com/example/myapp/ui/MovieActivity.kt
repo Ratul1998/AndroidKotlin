@@ -2,6 +2,7 @@ package com.example.myapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +42,10 @@ class MovieActivity : AppCompatActivity() {
 
         if(id!=-1)
             viewModel.getMovie(id)
+
+        binding.favButtonImageView.setOnClickListener(View.OnClickListener {
+            viewModel.addToFavourites(id,this)
+        })
 
     }
 

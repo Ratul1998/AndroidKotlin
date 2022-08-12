@@ -1,12 +1,15 @@
 package com.example.myapp.viewmodel
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapp.data.movies.FavMovie
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.util.NoNetworkException
+import com.example.myapp.util.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,5 +34,17 @@ class MovieViewModel(private val movieRepository : MoviesRepository) : ViewModel
 
         }
 
+    }
+
+    fun addToFavourites (movieId :Int,activity: Activity) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            movieRepository.addFavMovie(FavMovie(0,movieId))
+
+            activity.runOnUiThread {
+                activity.applicationContext.toast("Movie Added To Favourites")
+            }
+
+        }
     }
 }

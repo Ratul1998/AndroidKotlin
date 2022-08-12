@@ -16,4 +16,5 @@
     <string name="now_playing">Now Playing</string>
     <string name="movies">Movies</string>
     <string name="api_key">c0c3ccb592274bc7030c9314002a11c7</string>
+    <string name="favourite">favourite</string>
 </resources>

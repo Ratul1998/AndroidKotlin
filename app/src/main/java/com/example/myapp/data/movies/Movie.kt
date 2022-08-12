@@ -92,3 +92,10 @@ data class Movie(
         return result
     }
 }
+
+@Entity(tableName = "fav_movies")
+data class FavMovie(
+    @PrimaryKey(autoGenerate = true)
+    val id:Int,
+    val movieId:Int
+)

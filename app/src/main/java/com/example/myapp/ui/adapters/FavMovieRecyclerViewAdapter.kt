@@ -1,4 +1,4 @@
-package com.example.myapp.util
+package com.example.myapp.ui.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -13,10 +13,8 @@ import com.bumptech.glide.Glide
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.ui.MovieActivity
-import java.util.ArrayList
-import kotlin.time.Duration.Companion.seconds
 
-class RecyclerViewAdapter(private val items:List<Movie>, private val context : Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class FavMovieRecyclerViewAdapter(private val items:List<Movie>, private val context : Context) : RecyclerView.Adapter<FavMovieRecyclerViewAdapter.ViewHolder>(){
 
     override fun getItemCount(): Int {
         return items.size

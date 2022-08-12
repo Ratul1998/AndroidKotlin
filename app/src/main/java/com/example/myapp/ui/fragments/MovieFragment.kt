@@ -16,9 +16,9 @@ import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.data.movies.MovieService
 import com.example.myapp.repositories.MoviesRepository
+import com.example.myapp.ui.adapters.MovieRecyclerViewAdapter
 import com.example.myapp.util.HomeViewModelFactory
 import com.example.myapp.util.NetworkConnectionInterceptor
-import com.example.myapp.util.RecyclerViewAdapter
 import com.example.myapp.viewmodel.HomeViewModel
 
 class MovieFragment : Fragment() , LifecycleObserver {
@@ -88,7 +88,7 @@ class MovieFragment : Fragment() , LifecycleObserver {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
 
-        val adapter = RecyclerViewAdapter(movies,requireContext())
+        val adapter = MovieRecyclerViewAdapter(movies,requireContext())
 
         val layoutManager = GridLayoutManager(requireContext(),3)
 

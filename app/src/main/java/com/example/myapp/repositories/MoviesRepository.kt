@@ -2,6 +2,7 @@ package com.example.myapp.repositories
 
 import android.content.Context
 import com.example.myapp.R
+import com.example.myapp.data.movies.FavMovie
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.data.movies.MovieDao
 import com.example.myapp.data.movies.MovieService
@@ -34,6 +35,14 @@ class MoviesRepository(private val movieService: MovieService, private val conte
 
     suspend fun getMovieById(id:Int) : Movie {
         return movieDao.getMovieById(id)[0]
+    }
+
+    suspend fun addFavMovie(movie : FavMovie){
+        movieDao.addFavMovie(movie)
+    }
+
+    suspend fun getFavMovies() : List<Movie>{
+        return movieDao.getFavouriteMovies()
     }
 
 }

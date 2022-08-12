@@ -1,7 +1,10 @@
 package com.example.myapp.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -20,8 +23,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home)
-
         setUpViewPager(binding.tabViewpager,binding.moviesTabLayout)
+        binding.favButton.setOnClickListener(View.OnClickListener {
+
+            startActivity(Intent(this,FavouriteActivity::class.java))
+        })
 
     }
 
