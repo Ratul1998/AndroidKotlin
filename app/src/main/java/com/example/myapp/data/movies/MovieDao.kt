@@ -1,6 +1,5 @@
 package com.example.myapp.data.movies
 
-import com.example.myapp.Api
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
