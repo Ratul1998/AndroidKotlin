@@ -1,23 +1,43 @@
 package com.example.myapp.util
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
 import java.util.ArrayList
+import kotlin.time.Duration.Companion.seconds
 
-class RecyclerViewAdapter(private val items:List<Movie>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class RecyclerViewAdapter(private val items:List<Movie>, private val context : Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
     override fun getItemCount(): Int {
         return items.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = items[position] as Movie
-        holder.title?.text  = movie.title
+        val movie = items[position]
+        holder.title.text = movie.vote_average.toString()
+        holder.poster.let {
+            Glide
+                .with(context)
+                .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
+                .centerCrop()
+                .placeholder(R.drawable.ic_app_logo)
+                .into(it)
+        }
+
+        holder.card.setOnClickListener(View.OnClickListener {
+
+
+
+        })
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +48,13 @@ class RecyclerViewAdapter(private val items:List<Movie>) : RecyclerView.Adapter<
     }
 
     class ViewHolder(row: View) : RecyclerView.ViewHolder(row) {
-        var title: TextView? = null
-
+        var title: TextView
+        var poster:ImageView
+        var card : LinearLayout
         init {
-            this.title = row.findViewById<TextView>(R.id.titleTextView)
+            this.title = row.findViewById(R.id.titleTextView)
+            this.poster = row.findViewById(R.id.posterImageView)
+            this.card = row.findViewById(R.id.cardLinearLayout)
         }
     }
 

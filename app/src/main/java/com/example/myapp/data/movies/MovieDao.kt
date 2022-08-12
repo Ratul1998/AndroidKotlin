@@ -9,10 +9,10 @@ import retrofit2.http.Query
 interface MovieDao {
 
     @GET(value = "movie/popular")
-    suspend fun<T : Any>  getPopularMovies(@Query("api_key") api_key :String) : Response<T>
+    suspend fun getPopularMovies(@Query("api_key") api_key :String) : Response<MovieResponse>
 
     @GET(value = "movie/now_playing")
-    suspend fun<T : Any>  getNowPlayingMovies(@Query("api_key") api_key :String) : Response<T>
+    suspend fun getNowPlayingMovies(@Query("api_key") api_key :String) : Response<MovieResponse>
 
     companion object{
         operator fun invoke(): MovieDao {

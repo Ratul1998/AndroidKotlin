@@ -1,5 +1,34 @@
 package com.example.myapp.data.movies
 
+data class MovieResponse(
+    val page : Int,
+    val results : Array<Movie>,
+    val total_results : Int,
+    val total_pages : Int
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as MovieResponse
+
+        if (page != other.page) return false
+        if (!results.contentEquals(other.results)) return false
+        if (total_results != other.total_results) return false
+        if (total_pages != other.total_pages) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = page
+        result = 31 * result + results.contentHashCode()
+        result = 31 * result + total_results
+        result = 31 * result + total_pages
+        return result
+    }
+}
+
 data class Movie(
     val id : Int,
     val poster_path  : String?,

@@ -5,24 +5,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapp.data.movies.Movie
-import com.example.myapp.data.user.User
-import com.example.myapp.repositories.AuthRepository
 import com.example.myapp.repositories.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 class HomeViewModel(private  val movieRepository: MoviesRepository) : ViewModel() {
 
-    private var popularMovies : MutableLiveData<ArrayList<Movie>> = MutableLiveData<ArrayList<Movie>>()
+    private var popularMovies : MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
 
-    val livePopularMovie : LiveData<ArrayList<Movie>>
+    val livePopularMovie : LiveData<List<Movie>>
      get() = popularMovies
+
+    private var nowPlayingMovies : MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
+
+    val liveNowPlayingMovie : LiveData<List<Movie>>
+        get() = nowPlayingMovies
 
     fun getPopularMovies(){
         viewModelScope.launch(Dispatchers.IO) {
 
             popularMovies.postValue(movieRepository.getPopularMovies())
+
+        }
+    }
+
+    fun getNowPlaying(){
+        viewModelScope.launch(Dispatchers.IO) {
+
+            nowPlayingMovies.postValue(movieRepository.getNowPlayingMovies())
 
         }
     }

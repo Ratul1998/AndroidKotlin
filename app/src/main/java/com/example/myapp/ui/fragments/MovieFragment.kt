@@ -18,7 +18,6 @@ import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.util.HomeViewModelFactory
 import com.example.myapp.util.RecyclerViewAdapter
 import com.example.myapp.viewmodel.HomeViewModel
-import java.util.ArrayList
 
 class MovieFragment : Fragment() , LifecycleObserver {
 
@@ -48,26 +47,44 @@ class MovieFragment : Fragment() , LifecycleObserver {
 
         viewModel = ViewModelProvider(requireActivity(),homeViewModelFactory)[HomeViewModel::class.java]
 
-        viewModel.livePopularMovie.observe(requireActivity(), Observer { movies ->
 
-            if(movies.isNullOrEmpty()){
-                println("Nothing to show")
-            }else{
-                setRecyclerView(movies,view)
+        when(position){
+            1 -> {
+                viewModel.livePopularMovie.observe(requireActivity(), Observer { movies ->
+
+                    if(movies.isNullOrEmpty()){
+                        println("Nothing to show")
+                    }else{
+                        setRecyclerView(movies,view)
+                    }
+
+                })
+
+                viewModel.getPopularMovies()
             }
+            2 -> {
+                viewModel.liveNowPlayingMovie.observe(requireActivity(), Observer { movies ->
 
-        })
+                    if(movies.isNullOrEmpty()){
+                        println("Nothing to show")
+                    }else{
+                        setRecyclerView(movies,view)
+                    }
 
-        viewModel.getPopularMovies()
+                })
+
+                viewModel.getNowPlaying()
+            }
+        }
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setRecyclerView(movies : ArrayList<Movie>, view: View) {
+    fun setRecyclerView(movies : List<Movie>, view: View) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
 
-        val adapter = RecyclerViewAdapter(movies)
+        val adapter = RecyclerViewAdapter(movies,requireContext())
 
         val layoutManager = GridLayoutManager(requireContext(),3)
 
