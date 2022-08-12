@@ -11,11 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapp.LocalDatabase
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
-import com.example.myapp.data.movies.MovieDao
+import com.example.myapp.data.movies.MovieService
 import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.util.HomeViewModelFactory
+import com.example.myapp.util.NetworkConnectionInterceptor
 import com.example.myapp.util.RecyclerViewAdapter
 import com.example.myapp.viewmodel.HomeViewModel
 
@@ -23,7 +25,7 @@ class MovieFragment : Fragment() , LifecycleObserver {
 
 
 
-    var position = -1
+    private var position = -1
 
     lateinit var viewModel: HomeViewModel
 
@@ -41,8 +43,10 @@ class MovieFragment : Fragment() , LifecycleObserver {
             position = getInt("position")
         }
 
-        val movieDao = MovieDao.invoke()
-        val movieRepository = MoviesRepository(movieDao,requireContext())
+        val movieDao = LocalDatabase.getDatabase(requireContext()).movieDao()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(requireContext())
+        val movieService = MovieService.invoke(networkConnectionInterceptor)
+        val movieRepository = MoviesRepository(movieService,requireContext(),movieDao)
         val homeViewModelFactory = HomeViewModelFactory(movieRepository)
 
         viewModel = ViewModelProvider(requireActivity(),homeViewModelFactory)[HomeViewModel::class.java]

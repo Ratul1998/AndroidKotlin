@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.repositories.MoviesRepository
+import com.example.myapp.util.NoNetworkException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,13 @@ class MovieViewModel(private val movieRepository : MoviesRepository) : ViewModel
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            movie.postValue(movieRepository.getMovie(id))
+            try{
+                movie.postValue(movieRepository.getMovie(id))
+            }
+            catch (e : NoNetworkException){
+                movie.postValue(movieRepository.getMovieById(id))
+            }
+
 
         }
 

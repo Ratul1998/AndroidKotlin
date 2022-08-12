@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.repositories.MoviesRepository
+import com.example.myapp.util.NoNetworkException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,18 @@ class HomeViewModel(private  val movieRepository: MoviesRepository) : ViewModel(
     fun getPopularMovies(){
         viewModelScope.launch(Dispatchers.IO) {
 
-            popularMovies.postValue(movieRepository.getPopularMovies())
+            try {
+
+                val list = movieRepository.getPopularMovies()
+                popularMovies.postValue(list)
+                list.forEach{ movie ->
+                    movieRepository.addMovie(movie)
+                }
+            }
+            catch (e:NoNetworkException){
+                popularMovies.postValue(movieRepository.getMovies())
+            }
+
 
         }
     }
@@ -32,7 +44,13 @@ class HomeViewModel(private  val movieRepository: MoviesRepository) : ViewModel(
     fun getNowPlaying(){
         viewModelScope.launch(Dispatchers.IO) {
 
-            nowPlayingMovies.postValue(movieRepository.getNowPlayingMovies())
+            try {
+                nowPlayingMovies.postValue(movieRepository.getNowPlayingMovies())
+            }
+            catch (e:NoNetworkException){
+                println(e.message)
+            }
+
 
         }
     }

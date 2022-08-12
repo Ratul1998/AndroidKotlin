@@ -1,5 +1,8 @@
 package com.example.myapp.data.movies
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class MovieResponse(
     val page : Int,
     val results : Array<Movie>,
@@ -29,7 +32,9 @@ data class MovieResponse(
     }
 }
 
+@Entity(tableName = "movie_table")
 data class Movie(
+    @PrimaryKey(autoGenerate = false)
     val id : Int,
     val poster_path  : String?,
     val adult : Boolean,

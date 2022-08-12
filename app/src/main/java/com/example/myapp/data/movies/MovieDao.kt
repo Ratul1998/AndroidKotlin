@@ -1,31 +1,21 @@
 package com.example.myapp.data.movies
 
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
+@Dao
 interface MovieDao {
 
-    @GET(value = "movie/popular")
-    suspend fun getPopularMovies(@Query("api_key") api_key :String) : Response<MovieResponse>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addMovie(movie: Movie)
 
-    @GET(value = "movie/now_playing")
-    suspend fun getNowPlayingMovies(@Query("api_key") api_key :String) : Response<MovieResponse>
+    @Query("SELECT * FROM movie_table WHERE id=:id")
+    suspend fun getMovieById(id : Int) : List<Movie>
 
-    @GET(value = "movie/{id}")
-    suspend fun getMovie(@Path("id") id:String, @Query("api_key") api_key :String) : Response<Movie>
+    @Query("SELECT * FROM movie_table")
+    suspend fun getMovies() : List<Movie>
 
-    companion object{
-        operator fun invoke(): MovieDao {
-            return Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(MovieDao::class.java)
-        }
-    }
 
 }
