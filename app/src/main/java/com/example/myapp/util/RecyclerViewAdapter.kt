@@ -1,6 +1,7 @@
 package com.example.myapp.util
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
+import com.example.myapp.ui.MovieActivity
 import java.util.ArrayList
 import kotlin.time.Duration.Companion.seconds
 
@@ -33,8 +35,9 @@ class RecyclerViewAdapter(private val items:List<Movie>, private val context : C
         }
 
         holder.card.setOnClickListener(View.OnClickListener {
-
-
+            val intent = Intent(context,MovieActivity::class.java)
+            intent.putExtra("id",movie.id)
+            context.startActivity(intent)
 
         })
 

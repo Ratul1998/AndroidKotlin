@@ -19,5 +19,9 @@ class MoviesRepository(private val movieDao: MovieDao ,private val context: Cont
         return response.results.toList()
     }
 
+    suspend fun getMovie(id:Int) : Movie {
+        return apiRequest { movieDao.getMovie(id.toString(),context.applicationContext.getString(R.string.api_key)) }
+    }
+
 }
 

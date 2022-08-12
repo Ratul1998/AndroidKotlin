@@ -20,3 +20,11 @@ class HomeViewModelFactory(private val movieRepository: MoviesRepository) : View
     }
 
 }
+
+class MovieViewModelFactory(private val movieRepository: MoviesRepository) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return modelClass.getConstructor(MoviesRepository :: class.java).newInstance(movieRepository)
+    }
+
+}
