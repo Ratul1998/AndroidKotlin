@@ -6,29 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapp.LocalDatabase
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
-import com.example.myapp.data.movies.MovieService
-import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.ui.adapters.MovieRecyclerViewAdapter
-import com.example.myapp.util.HomeViewModelFactory
-import com.example.myapp.util.NetworkConnectionInterceptor
+import com.example.myapp.util.setValue
 import com.example.myapp.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() , LifecycleObserver {
 
 
 
     private var position = -1
 
-    lateinit var viewModel: HomeViewModel
-
+    private var viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,15 +39,6 @@ class MovieFragment : Fragment() , LifecycleObserver {
         arguments?.takeIf { it.containsKey("position") }?.apply {
             position = getInt("position")
         }
-
-        val movieDao = LocalDatabase.getDatabase(requireContext()).movieDao()
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(requireContext())
-        val movieService = MovieService.invoke(networkConnectionInterceptor)
-        val movieRepository = MoviesRepository(movieService,requireContext(),movieDao)
-        val homeViewModelFactory = HomeViewModelFactory(movieRepository)
-
-        viewModel = ViewModelProvider(requireActivity(),homeViewModelFactory)[HomeViewModel::class.java]
-
 
         when(position){
             1 -> {

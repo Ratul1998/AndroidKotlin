@@ -10,10 +10,13 @@ import com.example.myapp.data.movies.Movie
 import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.util.NoNetworkException
 import com.example.myapp.util.toast
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieViewModel(private val movieRepository : MoviesRepository) : ViewModel(){
+@HiltViewModel
+class MovieViewModel @Inject constructor(private val movieRepository : MoviesRepository) : ViewModel(){
 
     private var movie : MutableLiveData<Movie> = MutableLiveData<Movie>()
 

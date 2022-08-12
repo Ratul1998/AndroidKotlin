@@ -7,8 +7,10 @@ import com.example.myapp.data.movies.Movie
 import com.example.myapp.data.movies.MovieDao
 import com.example.myapp.data.movies.MovieService
 import com.example.myapp.util.SafeApiRequest
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class MoviesRepository(private val movieService: MovieService, private val context: Context, private val movieDao: MovieDao) : SafeApiRequest() {
+class MoviesRepository @Inject constructor(private val movieService: MovieService, @ApplicationContext private val context: Context, private val movieDao: MovieDao) : SafeApiRequest() {
 
     suspend fun getPopularMovies(): List<Movie> {
         val response =

@@ -14,7 +14,9 @@ import com.example.myapp.ui.fragments.MovieFragment
 import com.example.myapp.util.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHomeBinding

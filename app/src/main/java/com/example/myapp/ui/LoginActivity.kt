@@ -3,31 +3,26 @@ package com.example.myapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import com.example.myapp.LocalDatabase
 import com.example.myapp.R
 import com.example.myapp.data.user.User
 import com.example.myapp.databinding.ActivityLoginBinding
-import com.example.myapp.repositories.AuthRepository
-import com.example.myapp.util.AuthViewModelFactory
+import com.example.myapp.util.setValue
 import com.example.myapp.util.toast
 import com.example.myapp.viewmodel.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
-    lateinit var viewModel: AuthViewModel
+
+    private var viewModel: AuthViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        val userDao = LocalDatabase.getDatabase(application).userDao()
-        val authRepository = AuthRepository(userDao)
-        val authViewModelFactory = AuthViewModelFactory(authRepository)
-
-        viewModel = ViewModelProvider(this,authViewModelFactory)[AuthViewModel::class.java]
 
         viewModel.getInitialUser(this)
 
@@ -52,3 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 }
+
+
+
+

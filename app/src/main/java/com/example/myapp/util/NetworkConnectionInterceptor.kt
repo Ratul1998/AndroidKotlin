@@ -3,10 +3,12 @@ package com.example.myapp.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class NetworkConnectionInterceptor(private val context: Context) : Interceptor{
+class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext private val context: Context) : Interceptor{
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

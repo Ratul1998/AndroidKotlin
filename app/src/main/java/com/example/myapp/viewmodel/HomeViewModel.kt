@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapp.data.movies.Movie
 import com.example.myapp.repositories.MoviesRepository
 import com.example.myapp.util.NoNetworkException
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(private  val movieRepository: MoviesRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private  val movieRepository: MoviesRepository) : ViewModel() {
 
     private var popularMovies : MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
 

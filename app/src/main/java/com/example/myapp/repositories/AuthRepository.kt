@@ -3,8 +3,9 @@ package com.example.myapp.repositories
 import androidx.lifecycle.LiveData
 import com.example.myapp.data.user.User
 import com.example.myapp.data.user.UserDao
+import javax.inject.Inject
 
-class AuthRepository(private val userDao: UserDao) {
+class AuthRepository @Inject constructor(private val userDao: UserDao) {
 
     suspend fun addUser(user:User){
         userDao.addUser(user)

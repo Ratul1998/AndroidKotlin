@@ -3,23 +3,20 @@ package com.example.myapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.myapp.LocalDatabase
 import com.example.myapp.R
 import com.example.myapp.data.movies.Movie
-import com.example.myapp.data.movies.MovieService
 import com.example.myapp.databinding.ActivityMovieBinding
-import com.example.myapp.repositories.MoviesRepository
-import com.example.myapp.util.MovieViewModelFactory
-import com.example.myapp.util.NetworkConnectionInterceptor
 import com.example.myapp.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieActivity : AppCompatActivity() {
 
-    private lateinit var viewModel : MovieViewModel
+    private  val viewModel : MovieViewModel by viewModels()
     private lateinit var binding: ActivityMovieBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +24,6 @@ class MovieActivity : AppCompatActivity() {
 
         val intent = intent
         val id = intent.getIntExtra("id",-1)
-
-        val movieDao = LocalDatabase.getDatabase(this).movieDao()
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val movieService = MovieService.invoke(networkConnectionInterceptor)
-        val movieRepository  = MoviesRepository(movieService, this,movieDao)
-        val movieViewModelFactory  = MovieViewModelFactory(movieRepository)
-
-        viewModel = ViewModelProvider(this, movieViewModelFactory)[MovieViewModel::class.java]
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie)
 

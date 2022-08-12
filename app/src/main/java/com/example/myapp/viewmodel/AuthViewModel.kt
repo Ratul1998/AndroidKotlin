@@ -9,10 +9,13 @@ import com.example.myapp.repositories.AuthRepository
 import com.example.myapp.ui.HomeActivity
 import com.example.myapp.util.SharedPreferenceUtil
 import com.example.myapp.util.toast
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
 
 
     private fun addUser(user : User){
